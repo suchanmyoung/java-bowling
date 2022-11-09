@@ -14,16 +14,14 @@ public class PinTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 3, 5, 7, 9})
     void pin_fall_remainingPin_minus(int countOfHit){
-        Pin pin = new Pin();
-        pin.fall(countOfHit);
+        Pin pin = new Pin(countOfHit);
         assertThat(pin.getRemainingPin()).isEqualTo(10 - countOfHit);
     }
 
     @DisplayName("핀이 남아 있는 갯수보다 쓰러트린 갯수가 많으면 예외처리한다.")
     @Test
     void count_of_hit_greater_than_remaining() {
-        Pin pin = new Pin();
-        assertThatThrownBy(() -> pin.fall(11))
+        assertThatThrownBy(() -> new Pin(11))
             .isInstanceOf(IllegalStateException.class);
     }
 }
